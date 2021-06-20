@@ -22,12 +22,13 @@ jobs:
       with:
         node-version: 14
     
-    - name: setup
-      run: yarn install
-    
+    - name: Build
+      run: |
+        yarn install
+
     - name: Deploy with gh-pages
       run: |
         git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-        yarn deploy -- -u "github-actions-bot <support+actions@github.com>"
+        npx gh-pages -d build -u "github-actions-bot <support+actions@github.com>"
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
